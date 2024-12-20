@@ -1,4 +1,4 @@
-import { embeddings } from "@/schema/embedding";
+import { embeddings } from "@/db/schema/embedding";
 import { google } from "@ai-sdk/google";
 import { embed, embedMany } from "ai";
 import { cosineDistance, desc, gt, sql } from "drizzle-orm";

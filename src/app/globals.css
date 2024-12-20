@@ -76,8 +76,15 @@ body {
 .input-page h3,
 .input-page h4,
 .input-page h5,
-.input-page h6 
-.input-page p {
+.input-page h6 .input-page p {
   font-size: revert;
   font-weight: revert;
+}
+
+.input-page ol,
+.input-page ul,
+.input-page menu {
+  list-style: revert;
+  margin: revert;
+  padding: revert;
 }

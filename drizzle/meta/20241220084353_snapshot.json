@@ -1,6 +1,6 @@
 {
-  "id": "1759b0e7-1adc-4a7c-988f-253862cbf218",
-  "prevId": "6bd7ec97-5a05-472c-86c2-214f006da484",
+  "id": "c01e37c7-e12f-4a34-beca-b12c9b7794e1",
+  "prevId": "b73f5d1e-b0c2-4440-a731-6d0cf2c4b339",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -10,15 +10,16 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar(191)",
+          "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
-        "resource_id": {
-          "name": "resource_id",
-          "type": "varchar(191)",
+        "faq_id": {
+          "name": "faq_id",
+          "type": "uuid",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "content": {
           "name": "content",
@@ -28,7 +29,7 @@
         },
         "embedding": {
           "name": "embedding",
-          "type": "vector(1536)",
+          "type": "vector(768)",
           "primaryKey": false,
           "notNull": true
         }
@@ -51,35 +52,28 @@
           "with": {}
         }
       },
-      "foreignKeys": {
-        "embeddings_resource_id_resources_id_fk": {
-          "name": "embeddings_resource_id_resources_id_fk",
-          "tableFrom": "embeddings",
-          "tableTo": "resources",
-          "columnsFrom": [
-            "resource_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.resources": {
-      "name": "resources",
+    "public.faqs": {
+      "name": "faqs",
       "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar(191)",
+          "type": "uuid",
           "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
           "notNull": true
         },
         "content": {
@@ -99,8 +93,13 @@
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
+          "notNull": false
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
