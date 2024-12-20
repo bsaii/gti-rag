@@ -35,7 +35,6 @@ interface EditorProps {
 const Editor = ({ markdown, editorRef }: EditorProps) => {
   return (
     <MDXEditor
-      onChange={(e) => console.log(e)}
       ref={editorRef}
       markdown={markdown}
       plugins={[

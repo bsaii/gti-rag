@@ -24,6 +24,9 @@ export default function Page() {
   }, []);
 
   const handleSave = async () => {
+    const content = ref.current?.getMarkdown();
+    if (!content) return;
+
     try {
       setSaving(true);
       await fetch("/api/faq/99b2e0c5-0563-41a0-8bbf-cfb7fa869077", {
@@ -31,7 +34,7 @@ export default function Page() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ content: ref.current?.getMarkdown() }),
+        body: JSON.stringify({ content }),
       });
       setSaving(false);
       return;

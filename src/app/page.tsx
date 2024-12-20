@@ -1,11 +1,11 @@
 "use client";
 
+import { ToolInvocation } from "ai";
 import { useChat } from "ai/react";
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    maxSteps: 3,
-  });
+  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  console.log(messages);
   return (
     <div className='flex flex-col w-full max-w-md py-24 mx-auto stretch'>
       <div className='space-y-4'>
@@ -18,7 +18,21 @@ export default function Chat() {
                   m.content
                 ) : (
                   <span className='italic font-light'>
-                    {"calling tool: " + m?.toolInvocations?.[0].toolName}
+                    {m.toolInvocations &&
+                      m.toolInvocations.length > 0 &&
+                      m.toolInvocations.map(
+                        (toolInvocation: ToolInvocation) => {
+                          return "result" in toolInvocation ? (
+                            <div key={toolInvocation.toolCallId}>
+                              {toolInvocation.result}
+                            </div>
+                          ) : (
+                            <div key={toolInvocation.toolCallId}>
+                              Getting information...
+                            </div>
+                          );
+                        }
+                      )}
                   </span>
                 )}
               </p>
@@ -31,7 +45,7 @@ export default function Chat() {
         <input
           className='fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl'
           value={input}
-          placeholder='Say something...'
+          placeholder='Ask away...'
           onChange={handleInputChange}
         />
       </form>
