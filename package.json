@@ -22,11 +22,12 @@
     "drizzle-orm": "^0.38.2",
     "drizzle-zod": "^0.6.0",
     "lucide-react": "^0.468.0",
-    "nanoid": "^5.0.9",
     "next": "15.1.0",
     "postgres": "^3.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^9.0.3",
+    "remove-markdown": "^0.6.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"

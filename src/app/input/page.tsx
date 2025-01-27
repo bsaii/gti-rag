@@ -5,6 +5,7 @@ import { Faq } from "@/db/schema/faq";
 import { MDXEditorMethods } from "@mdxeditor/editor";
 import dynamic from "next/dynamic";
 import { Suspense, useEffect, useRef, useState } from "react";
+import removeMdx from "remove-markdown";
 
 const EditorComponent = dynamic(() => import("../../components/Editor"), {
   ssr: false,
@@ -16,7 +17,7 @@ export default function Page() {
 
   useEffect(() => {
     async function fetchContent() {
-      const res = await fetch("/api/faq/99b2e0c5-0563-41a0-8bbf-cfb7fa869077");
+      const res = await fetch("/api/faq/ec656a8e-970d-473c-8793-f3b301748ce6");
       const data = (await res.json()) as Faq["content"];
       ref.current?.setMarkdown(data);
     }
@@ -29,12 +30,13 @@ export default function Page() {
 
     try {
       setSaving(true);
-      await fetch("/api/faq/99b2e0c5-0563-41a0-8bbf-cfb7fa869077", {
+      const plainText = removeMdx(content);
+      await fetch("/api/faq/ec656a8e-970d-473c-8793-f3b301748ce6", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ content }),
+        body: JSON.stringify({ content: plainText }),
       });
       setSaving(false);
       return;
